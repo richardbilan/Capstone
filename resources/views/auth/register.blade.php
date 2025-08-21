@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>User Registration - Camaligtas</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -111,49 +112,81 @@
         <form id="registerForm" method="POST" action="{{ url('register') }}">
             @csrf
             <div class="form-row">
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
-                    <label for="first_name"><i class="fas fa-user me-2"></i>First Name</label>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name" required>
+                    <label for="first_name"><i class="fas fa-user me-2"></i>First name</label>
                 </div>
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Middle Name" required>
-                    <label for="middle_name"><i class="fas fa-user me-2"></i>Middle Name</label>
-                </div>
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
-                    <label for="last_name"><i class="fas fa-user me-2"></i>Last Name</label>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Middle name">
+                    <label for="middle_name">Middle name (optional)</label>
                 </div>
             </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="rib_no" name="rib_no" placeholder="RIB No." required>
-                <label for="rib_no"><i class="fas fa-id-card me-2"></i>RIB No.</label>
+            <div class="form-row">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name" required>
+                    <label for="last_name">Last name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="suffix" name="suffix" placeholder="Jr., III">
+                    <label for="suffix">Suffix (optional)</label>
+                </div>
             </div>
-            <div id="residentCheckMsg" class="alert alert-info d-none" role="alert"></div>
 
             <div class="form-row">
-                <div class="form-floating">
-                    <input type="number" min="1" class="form-control" id="age" name="age" placeholder="Age" required disabled>
-                    <label for="age"><i class="fas fa-calendar me-2"></i>Age</label>
+                <div class="form-floating mb-3">
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="09123456789" pattern="[0-9]{11}">
+                    <label for="phone"><i class="fas fa-phone me-2"></i>Phone (optional)</label>
                 </div>
-                <div class="form-floating">
-                    <select class="form-control" id="gender" name="gender" required disabled>
-                        <option value="" disabled selected>Select Gender</option>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="age" name="age" min="0" placeholder="Age" required>
+                    <label for="age">Age</label>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="gender" name="gender" required>
+                        <option value="" selected disabled>Select</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="Other">Other</option>
                     </select>
-                    <label for="gender"><i class="fas fa-venus-mars me-2"></i>Gender</label>
+                    <label for="gender">Gender</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="birthday" name="birthday" required>
+                    <label for="birthday"><i class="fas fa-calendar-day me-2"></i>Birthday</label>
                 </div>
             </div>
-            <div class="form-floating">
-                <input type="tel" class="form-control" id="contact" name="contact" placeholder="Contact Number" pattern="[0-9]{11}" required disabled>
-                <label for="contact"><i class="fas fa-phone me-2"></i>Contact Number</label>
+
+            <div class="form-row">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="purok" name="purok" required>
+                        <option value="" selected disabled>Select Purok</option>
+                        <option value="Purok1">Purok 1</option>
+                        <option value="Purok2">Purok 2</option>
+                        <option value="Purok3">Purok 3</option>
+                        <option value="Purok4">Purok 4</option>
+                        <option value="Purok5">Purok 5</option>
+                        <option value="Relocation">Relocation</option>
+                    </select>
+                    <label for="purok"><i class="fas fa-map-pin me-2"></i>Purok</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="rbi_no" name="rbi_no" placeholder="RBI Number" required>
+                    <label for="rbi_no"><i class="fas fa-id-card me-2"></i>RBI Number</label>
+                </div>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+                <label for="email"><i class="fas fa-envelope me-2"></i>Email</label>
             </div>
           
             <div class="form-row">
     <div class="form-floating position-relative mb-3">
         <input type="password" class="form-control" id="password" name="password" 
-               placeholder="Password" minlength="8" required disabled
+               placeholder="Password" minlength="8" required
                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                title="Must be at least 8 characters long and include uppercase, lowercase, number, and special character"
                oncopy="return false" oncut="return false" onpaste="return false"
@@ -167,7 +200,7 @@
     <div class="form-floating position-relative">
         <input type="password" class="form-control" id="confirm_password" 
                name="password_confirmation" placeholder="Confirm Password" 
-               minlength="8" required disabled
+               minlength="8" required
                title="Please confirm your password"
                oncopy="return false" oncut="return false" onpaste="return false"
                autocomplete="new-password">
@@ -215,7 +248,7 @@
         }
     });
 </script>
-            <button type="submit" class="btn btn-register" id="registerBtn" disabled>
+            <button type="submit" class="btn btn-register" id="registerBtn">
                 <i class="fas fa-user-plus me-2"></i>Register
             </button>
         </form>
@@ -246,192 +279,63 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Helper to enable/disable registration fields
-        function setRegistrationFieldsEnabled(enabled) {
-            document.getElementById('age').disabled = !enabled;
-            document.getElementById('gender').disabled = !enabled;
-            document.getElementById('contact').disabled = !enabled;
-            document.getElementById('password').disabled = !enabled;
-            document.getElementById('confirm_password').disabled = !enabled;
-            document.getElementById('registerBtn').disabled = !enabled;
-        }
-
-        async function checkResidentMatch() {
-            const firstName = document.getElementById('first_name').value.trim();
-            const middleName = document.getElementById('middle_name').value.trim();
-            const lastName = document.getElementById('last_name').value.trim();
-            const ribNo = document.getElementById('rib_no').value.trim();
-            const msgDiv = document.getElementById('residentCheckMsg');
-            msgDiv.classList.remove('d-none', 'alert-success', 'alert-danger', 'alert-info');
-            msgDiv.innerText = '';
-
-            if (!firstName || !middleName || !lastName || !ribNo) {
-                setRegistrationFieldsEnabled(false);
-                msgDiv.classList.add('d-none');
-                return;
-            }
-            msgDiv.classList.add('alert-info');
-            msgDiv.innerText = 'Checking resident record...';
-            try {
-                const resp = await fetch("{{ url('register/check-resident') }}", {
-                    method: 'POST',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        first_name: firstName,
-                        middle_name: middleName,
-                        last_name: lastName,
-                        rib_no: ribNo
-                    })
-                });
-                const data = await resp.json();
-                if (resp.ok && data.exists && !data.registered) {
-                    setRegistrationFieldsEnabled(true);
-                    msgDiv.classList.remove('alert-info', 'alert-danger');
-                    msgDiv.classList.add('alert-success');
-                    msgDiv.innerText = 'Resident found. Please complete your registration.';
-                } else if (data.exists && data.registered) {
-                    setRegistrationFieldsEnabled(false);
-                    msgDiv.classList.remove('alert-info', 'alert-success');
-                    msgDiv.classList.add('alert-danger');
-                    msgDiv.innerText = 'This resident is already registered.';
-                } else {
-                    setRegistrationFieldsEnabled(false);
-                    msgDiv.classList.remove('alert-info', 'alert-success');
-                    msgDiv.classList.add('alert-danger');
-                    msgDiv.innerText = data.message || 'No matching resident found.';
-                }
-            } catch (e) {
-                setRegistrationFieldsEnabled(false);
-                msgDiv.classList.remove('alert-info', 'alert-success');
-                msgDiv.classList.add('alert-danger');
-                msgDiv.innerText = 'Error checking resident. Please try again.';
-            }
-        }
-
-        ['first_name','middle_name','last_name','rib_no'].forEach(id => {
-            document.getElementById(id).addEventListener('blur', checkResidentMatch);
-            document.getElementById(id).addEventListener('input', function() {
-                setRegistrationFieldsEnabled(false);
-                document.getElementById('residentCheckMsg').classList.add('d-none');
-            });
-        });
-
-        // On page load, disable fields except name/rbi
-        setRegistrationFieldsEnabled(false);
-
-
         document.getElementById('registerForm').addEventListener('submit', async function(event) {
             event.preventDefault();
-
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm_password').value;
-            const errorsDiv = document.getElementById('registrationErrors');
-            errorsDiv.style.display = 'none'; // Hide previous errors
-            errorsDiv.innerHTML = ''; // Clear previous error messages
-
-            // Client-side validation for password match
-            if (password !== confirmPassword) {
-                errorsDiv.innerHTML = '<div>Passwords do not match. Please ensure both password fields are identical.</div>';
-                errorsDiv.style.display = 'block';
-                return;
-            }
-
-            // Client-side validation for empty fields (basic check)
-            const requiredFields = ['first_name', 'middle_name', 'last_name', 'rib_no', 'age', 'gender', 'contact', 'password', 'confirm_password'];
-            let hasEmptyFields = false;
-            let missingFields = [];
-
-            requiredFields.forEach(fieldId => {
-                const inputElement = document.getElementById(fieldId);
-                // Check if the element exists and its value is empty or just whitespace
-                if (inputElement && inputElement.value.trim() === '') {
-                    hasEmptyFields = true;
-                    // Format field names for better user readability
-                    const fieldName = inputElement.previousElementSibling ? inputElement.previousElementSibling.textContent.trim().replace('*', '') : fieldId.replace('_', ' ');
-                    missingFields.push(fieldName);
-                }
-            });
-
-            if (hasEmptyFields) {
-                errorsDiv.innerHTML = `<div>Please fill in all required fields: ${missingFields.join(', ')}.</div>`;
-                errorsDiv.style.display = 'block';
-                return;
-            }
-
-
             const form = event.target;
             const formData = new FormData(form);
+            const errorsDiv = document.getElementById('registrationErrors');
+            const submitBtn = document.getElementById('registerBtn');
+            errorsDiv.style.display = 'none';
+            errorsDiv.innerHTML = '';
+
+            // Basic client-side checks
+            const pw = formData.get('password');
+            const pwc = formData.get('password_confirmation');
+            if (!pw || pw.length < 8) {
+                errorsDiv.textContent = 'Password must be at least 8 characters long';
+                errorsDiv.style.display = 'block';
+                return;
+            }
+            if (pw !== pwc) {
+                errorsDiv.textContent = 'Passwords do not match';
+                errorsDiv.style.display = 'block';
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registering...';
 
             try {
                 const response = await fetch(form.action, {
                     method: 'POST',
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                     },
                     body: formData
                 });
+                const data = await response.json().catch(() => ({ message: 'Unexpected response' }));
 
                 if (response.ok) {
-                    // Registration successful
-                    var successModal = new bootstrap.Modal(document.getElementById('registrationSuccessModal'));
-                    successModal.show();
-
-                    let countdown = 2;
-                    const countdownElement = document.getElementById('countdown');
-                    countdownElement.innerText = countdown;
-
-                    const interval = setInterval(() => {
-                        countdown--;
-                        countdownElement.innerText = countdown;
-                        if (countdown <= 0) {
-                            clearInterval(interval);
-                            window.location.href = "{{ url('login') }}";
-                        }
-                    }, 1000);
+                    window.location.href = '{{ route('login') }}?registered=1';
                 } else {
-                    // Registration failed, display errors
-                    const data = await response.json();
                     let messages = '';
-
-                    if (response.status === 422 && data.errors) {
-                        // Laravel validation errors (most common for specific messages)
-                        Object.entries(data.errors).forEach(([field, errArr]) => {
-                            errArr.forEach(msg => {
-                                if (field === 'contact') {
-                                    messages += `<div>Error with Contact Number: ${msg}. Please use a unique 11-digit phone number.</div>`;
-                                } else if (field === 'password') {
-                                    messages += `<div>Password Error: ${msg}. Passwords must be at least 8 characters long and include a mix of uppercase, lowercase, numbers, and symbols.</div>`;
-                                } else if (field === 'rib_no') {
-                                    messages += `<div>RIB No. Error: ${msg}. The RIB number you entered may be invalid or already registered.</div>`;
-                                }
-                                else {
-                                    messages += `<div>${msg}</div>`;
-                                }
-                            });
-                        });
-                    } else if (data.message) {
-                        // General error message from the server (e.g., integrity constraint)
-                        if (data.message.includes('Duplicate entry') && data.message.includes('users_phone_unique')) {
-                            messages = '<div>Registration failed: The contact number you entered is already registered. Please use a different phone number.</div>';
-                        } else if (data.message.includes('Integrity constraint violation')) {
-                            messages = '<div>Registration failed due to a data conflict. This might mean your details are already registered. Please check or try different inputs.</div>';
-                        } else {
-                            messages = `<div>Registration failed: ${data.message}</div>`;
-                        }
+                    if (data && data.errors) {
+                        messages = Object.values(data.errors).flat().join('<br>');
+                    } else if (data && data.message) {
+                        messages = data.message;
                     } else {
-                        messages = '<div>Registration failed. Please check your input and try again.</div>';
+                        messages = 'Registration failed. Please check your input and try again.';
                     }
                     errorsDiv.innerHTML = messages;
                     errorsDiv.style.display = 'block';
                 }
-            } catch (error) {
-                console.error('Fetch error:', error);
-                errorsDiv.innerHTML = '<div>An unexpected error occurred. Please check your internet connection and try again.</div>';
+            } catch (e) {
+                errorsDiv.textContent = 'Network error. Please try again.';
                 errorsDiv.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-user-plus me-2"></i>Register';
             }
         });
     </script>

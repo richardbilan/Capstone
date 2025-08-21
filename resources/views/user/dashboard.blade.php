@@ -593,7 +593,7 @@
             <div class="col-md-8">
                 <h2 class="dashboard-title">
                     <i class="fas fa-shield-alt me-2 text-primary"></i>
-                    Welcome, User!
+                    Welcome, {{ auth()->user()->first_name ?? 'User' }}!
                 </h2>
                 <p class="dashboard-subtitle mb-0">
                     <i class="fas fa-map-marker-alt me-2"></i>
@@ -1399,9 +1399,32 @@ let routesVisible = true;
 let hazardLayers = {};
 let evacuationRoutes = {};
 let purokMarkers = {};
+let ilawodBounds = null;
 
 // Initialize routes visibility
 window.routesVisible = true;
+
+// Add Barangay Ilawod outline by loading a GeoJSON file
+function addBarangayOutline() {
+    fetch('/assets/geo/ilawod.geojson')
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            const outline = L.geoJSON(data, {
+                style: { color: '#1e3a8a', weight: 3, fill: false, opacity: 0.9 }
+            }).addTo(map).bindPopup('<strong>Barangay Ilawod</strong><br>Camalig, Albay');
+
+            const bounds = outline.getBounds();
+            ilawodBounds = bounds; // store globally for checks
+            map.fitBounds(bounds.pad(0.15));
+            map.setMaxBounds(bounds.pad(0.5));
+        })
+        .catch(err => {
+            console.error('Failed to load Ilawod boundary:', err);
+        });
+}
 
 // Initialize the map when the page loads
 document.addEventListener('DOMContentLoaded', function() {
@@ -1423,6 +1446,9 @@ function initializeMap() {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
+    
+    // Add Brgy. Ilawod boundary outline and focus the map
+    addBarangayOutline();
     
     // Add sample evacuation centers
     addEvacuationCenters();
@@ -1712,34 +1738,33 @@ function getCurrentLocationDashboard() {
             const accuracy = position.coords.accuracy;
             
             currentLocation = [lat, lng];
+
+            // If inside Ilawod bounds, enforce Ilawod label
+            if (ilawodBounds && ilawodBounds.contains([lat, lng])) {
+                addCurrentLocationMarker([lat, lng], 'Your Location (Ilawod, Camalig, Albay)');
+                map.setView([lat, lng], 16);
+                updateStatus(`Location found: Ilawod, Camalig, Albay (±${accuracy.toFixed(0)}m)`);
+                return;
+            }
+
+            // Otherwise, proceed with reverse geocoding for general label
             addCurrentLocationMarker([lat, lng], 'Your Current Location');
-            
             map.setView([lat, lng], 16);
-            
-            // Get readable location name using reverse geocoding
             fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`)
                 .then(response => response.json())
                 .then(data => {
                     let locationText = '';
                     if (data && data.display_name) {
-                        // Extract useful parts of the address
                         const address = data.address || {};
                         const parts = [];
-                        
                         if (address.house_number) parts.push(address.house_number);
                         if (address.road) parts.push(address.road);
-                        if (address.village || address.suburb || address.neighbourhood) {
-                            parts.push(address.village || address.suburb || address.neighbourhood);
-                        }
-                        if (address.city || address.town || address.municipality) {
-                            parts.push(address.city || address.town || address.municipality);
-                        }
-                        
+                        if (address.village || address.suburb || address.neighbourhood) parts.push(address.village || address.suburb || address.neighbourhood);
+                        if (address.city || address.town || address.municipality) parts.push(address.city || address.town || address.municipality);
                         locationText = parts.length > 0 ? parts.join(', ') : data.display_name.split(',')[0];
                     } else {
                         locationText = `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
                     }
-                    
                     updateStatus(`Location found: ${locationText} (±${accuracy.toFixed(0)}m)`);
                 })
                 .catch(error => {

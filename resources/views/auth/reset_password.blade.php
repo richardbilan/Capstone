@@ -169,19 +169,9 @@
             @csrf
             <input type="hidden" name="token" value="{{ $token ?? old('token') }}">
             <input type="hidden" name="phone" value="{{ $phone ?? old('phone') }}">
+            <input type="hidden" name="email" value="{{ $email ?? old('email') }}">
             
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" 
-                       name="phone" value="{{ $phone ?? old('phone') }}" required autofocus readonly>
-                <label for="phone">
-                    <i class="fas fa-phone me-2"></i>Phone Number
-                </label>
-                @error('phone')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
+            <!-- Identifier (RBI/Email) hidden via inputs above; no visible field per request -->
 
             <div class="form-floating mb-3">
                 <input type="password" class="form-control @error('password') is-invalid @enderror" 

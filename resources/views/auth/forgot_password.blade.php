@@ -158,19 +158,39 @@
     <div class="forgot-container my-3">
         <div class="forgot-header">
             <h2>Forgot Password</h2>
-            <p class="mb-0" style="font-size: 1rem; color: #888;">Enter your phone number to receive a reset code</p>
+            <p class="mb-0" style="font-size: 1rem; color: #888;">Choose how you want to reset your password</p>
         </div>
 
         <form id="otpForm">
-            <div class="form-floating">
-                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" pattern="[0-9]{11}" required>
-                <label for="phone">
-                    <i class="fas fa-phone me-2"></i>Phone Number
+            <div class="mb-3">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="method" id="methodPhone" value="phone" checked>
+                    <label class="form-check-label" for="methodPhone"><i class="fas fa-sms me-1"></i> SMS (Phone)</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="method" id="methodEmail" value="email">
+                    <label class="form-check-label" for="methodEmail"><i class="fas fa-envelope me-1"></i> Email</label>
+                </div>
+            </div>
+
+            <div id="phoneGroup" class="">
+                <div class="form-floating mb-3">
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" pattern="[0-9]{11}">
+                    <label for="phone">
+                        <i class="fas fa-phone me-2"></i>Phone Number (for SMS)
+                    </label>
+                </div>
+            </div>
+
+            <div id="emailGroup" class="form-floating d-none">
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                <label for="email">
+                    <i class="fas fa-envelope me-2"></i>Email
                 </label>
             </div>
 
-            <button type="submit" class="btn btn-forgot">
-                <i class="fas fa-sms me-2"></i> Send Code
+            <button type="submit" class="btn btn-forgot" id="submitBtn">
+                <i class="fas fa-sms me-2" id="submitIcon"></i> <span id="submitText">Send Code</span>
             </button>
         </form>
 
@@ -189,7 +209,7 @@
           </div>
           <div class="modal-body">
             <div id="otpMessage" class="alert alert-info d-none"></div>
-            <p class="mb-2">We have sent a 6-digit code to your phone. Enter it below:</p>
+            <p class="mb-2" id="otpInstruction">We have sent a 6-digit code to your phone. Enter it below:</p>
             <form id="verifyOtpForm">
                 <div class="form-group mb-3">
                     <input type="text" class="form-control text-center otp-input" id="otpCode" 
@@ -220,6 +240,38 @@
         document.addEventListener('DOMContentLoaded', function() {
             const video = document.getElementById('bgVideo');
             video.playbackRate = 0.5;
+
+            // Toggle input groups based on method selection
+            const methodPhone = document.getElementById('methodPhone');
+            const methodEmail = document.getElementById('methodEmail');
+            const phoneGroup = document.getElementById('phoneGroup');
+            const emailGroup = document.getElementById('emailGroup');
+            const phoneInput = document.getElementById('phone');
+            const emailInput = document.getElementById('email');
+            const submitText = document.getElementById('submitText');
+            const submitIcon = document.getElementById('submitIcon');
+
+            function updateMethodUI() {
+                if (methodPhone.checked) {
+                    phoneGroup.classList.remove('d-none');
+                    emailGroup.classList.add('d-none');
+                    phoneInput.required = true;
+                    emailInput.required = false;
+                    submitText.textContent = 'Send Code';
+                    submitIcon.className = 'fas fa-sms me-2';
+                } else {
+                    emailGroup.classList.remove('d-none');
+                    phoneGroup.classList.add('d-none');
+                    emailInput.required = true;
+                    phoneInput.required = false;
+                    submitText.textContent = 'Send Link';
+                    submitIcon.className = 'fas fa-envelope me-2';
+                }
+            }
+
+            methodPhone.addEventListener('change', updateMethodUI);
+            methodEmail.addEventListener('change', updateMethodUI);
+            updateMethodUI();
         });
     </script>
 
@@ -227,11 +279,16 @@
     <script>
         const otpForm = document.getElementById('otpForm');
         const verifyOtpForm = document.getElementById('verifyOtpForm');
-        const otpModal = new bootstrap.Modal(document.getElementById('otpModal'));
+        const otpModalEl = document.getElementById('otpModal');
+        const otpModal = new bootstrap.Modal(otpModalEl);
         const resendOtpLink = document.getElementById('resendOtpLink');
         const countdownElement = document.getElementById('countdown');
         const otpMessage = document.getElementById('otpMessage');
         const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+        const otpInstruction = document.getElementById('otpInstruction');
+        const methodPhone = document.getElementById('methodPhone');
+        const methodEmail = document.getElementById('methodEmail');
+        const submitBtn = document.getElementById('submitBtn');
         
         let countdown = 60; // 60 seconds countdown
         let countdownInterval;
@@ -239,48 +296,31 @@
         // Handle OTP form submission
         otpForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const phoneNumber = document.getElementById('phone').value;
-            
-            // Show loading state
-            const submitBtn = otpForm.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerHTML;
+            const originalBtnHtml = submitBtn.innerHTML;
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
-            
-            // In a real app, you would send an AJAX request to your backend here
-            // Example:
-            // fetch('/send-otp', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            //     },
-            //     body: JSON.stringify({ phone: phoneNumber })
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //     if (data.success) {
+
+            if (methodPhone.checked) {
+                const phoneNumber = document.getElementById('phone').value;
+                // Simulate sending OTP and open modal
+                setTimeout(() => {
                     startCountdown();
                     otpModal.show();
-            //     } else {
-            //         showOtpMessage('Failed to send OTP. Please try again.', 'danger');
-            //     }
-            // })
-            // .catch(error => {
-            //     showOtpMessage('An error occurred. Please try again.', 'danger');
-            // })
-            // .finally(() => {
-            //     submitBtn.disabled = false;
-            //     submitBtn.innerHTML = originalBtnText;
-            // });
-
-            // For demo purposes, we'll simulate a successful response
-            setTimeout(() => {
-                startCountdown();
-                otpModal.show();
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
-            }, 1000);
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
+                }, 800);
+            } else {
+                const email = document.getElementById('email').value;
+                // Simulate sending email OTP and open the same modal
+                setTimeout(() => {
+                    // Adjust instruction text for email
+                    otpInstruction.textContent = 'We have sent a 6-digit code to your email. Enter it below:';
+                    startCountdown();
+                    otpModal.show();
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
+                }, 800);
+            }
         });
 
         // Handle OTP verification
@@ -296,11 +336,15 @@
             if (otpCode === '123456') {
                 // Show success and proceed with password reset
                 showOtpMessage('OTP verified successfully! Redirecting...', 'success');
-                const phoneNumber = document.getElementById('phone').value;
                 const token = 'demo_reset_token_' + Date.now();
-                
-                // Build the URL with token and phone
-                const resetUrl = '{{ url("/reset-password") }}/' + token + '?phone=' + encodeURIComponent(phoneNumber);
+                let resetUrl = '';
+                if (methodPhone.checked) {
+                    const phoneNumber = document.getElementById('phone').value;
+                    resetUrl = '{{ url("/reset-password") }}/' + token + '?phone=' + encodeURIComponent(phoneNumber);
+                } else {
+                    const email = document.getElementById('email').value;
+                    resetUrl = '{{ url("/reset-password") }}/' + token + '?email=' + encodeURIComponent(email);
+                }
                 
                 setTimeout(() => {
                     window.location.href = resetUrl;

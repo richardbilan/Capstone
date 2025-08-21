@@ -156,7 +156,7 @@
     <div class="login-container">
         <div class="login-header">
             <h2>Login</h2>
-            <p style="font-size: 1rem; color: #888;">Sign In with your Phone Number</p>
+            <p style="font-size: 1rem; color: #888;">Sign in with your RBI Number</p>
         </div>
 
         <!-- Session Alerts -->
@@ -188,13 +188,13 @@
 
             @csrf
             <div class="form-floating">
-                <input type="tel" class="form-control @error('phone') is-invalid @enderror" 
-                       id="phone" name="phone" placeholder="Phone Number" pattern="[0-9]{11}" 
-                       value="{{ old('phone') }}" required>
-                <label for="phone">
-                    <i class="fas fa-phone me-2"></i> Phone Number
+                <input type="text" class="form-control @error('rbi_no') is-invalid @enderror" 
+                       id="rbi_no" name="rbi_no" placeholder="RBI Number" 
+                       value="{{ old('rbi_no') }}" required>
+                <label for="rbi_no">
+                    <i class="fas fa-id-card me-2"></i> RBI Number
                 </label>
-                @error('phone')
+                @error('rbi_no')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
@@ -256,25 +256,6 @@
             </button>
         </form>
 
-        <!-- RBI No Modal -->
-        <div class="modal fade" id="rbiModal" tabindex="-1" aria-labelledby="rbiModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="rbiModalLabel">Enter Registered RBI No.</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div id="rbiModalError" class="alert alert-danger d-none"></div>
-                        <input type="text" class="form-control" id="modalRbiNo" placeholder="RBI No." required autofocus>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" id="submitRbiModal">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         <div class="signup-link">
             <a href="{{ url('forgot_password') }}" style="color: #e53935; text-decoration: underline; font-size: 0.95rem;">Forgot Password?</a>
@@ -295,72 +276,9 @@
         });
     </script>
 
-    <!-- Login Simulation Script -->
+    <!-- Minimal JS: only slow down video -->
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            // Show RBI modal
-            document.getElementById('modalRbiNo').value = '';
-            document.getElementById('rbiModalError').classList.add('d-none');
-            var rbiModal = new bootstrap.Modal(document.getElementById('rbiModal'));
-            rbiModal.show();
-        });
-
-        document.getElementById('submitRbiModal').addEventListener('click', async function() {
-            const phone = document.getElementById('phone').value.trim();
-            const password = document.getElementById('password').value;
-            const rib_no = document.getElementById('modalRbiNo').value.trim();
-            const rbiModalError = document.getElementById('rbiModalError');
-            rbiModalError.classList.add('d-none');
-            rbiModalError.innerHTML = '';
-            if (!phone || !password || !rib_no) {
-                rbiModalError.innerHTML = 'Please enter all fields.';
-                rbiModalError.classList.remove('d-none');
-                return;
-            }
-            // Send AJAX login
-            try {
-                const response = await fetch("{{ route('login') }}", {
-                    method: 'POST',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        phone: phone,
-                        password: password,
-                        rib_no: rib_no
-                    })
-                });
-                const data = await response.json();
-                if (response.ok && data.success) {
-                    window.location.href = data.redirect || "{{ url('dashboard') }}";
-                } else {
-                    rbiModalError.innerHTML = data.message || 'Invalid credentials. Please check your details.';
-                    rbiModalError.classList.remove('d-none');
-                }
-            } catch (e) {
-                rbiModalError.innerHTML = 'Login failed. Please try again.';
-                rbiModalError.classList.remove('d-none');
-                    window.location.href = '/admin/dashboard';
-                }, 1000);
-                return false;
-            }
-
-            // User
-            if (phone === '09112233445' && password === 'user123') {
-                event.preventDefault();
-                document.getElementById('loginBtn').innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Accessing...';
-                setTimeout(() => {
-                    window.location.href = '/user/dashboard';
-                }, 1000);
-                return false;
-            }
-
-            return true;
-        }
+        // No custom submit handler needed; the form posts directly to the server
     </script>
 
 </body>

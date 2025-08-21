@@ -1,0 +1,26 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Barangay Ilawod",
+        "municipality": "Camalig",
+        "province": "Albay",
+        "source": "placeholder-approximate"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [123.7420, 13.1402],
+          [123.7453, 13.1404],
+          [123.7460, 13.1380],
+          [123.7440, 13.1368],
+          [123.7420, 13.1372],
+          [123.7415, 13.1387],
+          [123.7420, 13.1402]
+        ]]
+      }
+    }
+  ]
+}

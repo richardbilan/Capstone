@@ -22,7 +22,8 @@ Route::get('/forgot_password', function () {
 Route::get('/reset-password/{token?}', function ($token = null) {
     return view('auth.reset_password', [
         'token' => $token,
-        'phone' => request()->query('phone')
+        'phone' => request()->query('phone'),
+        'email' => request()->query('email'),
     ]);
 })->name('password.reset');
 
@@ -32,16 +33,24 @@ use Illuminate\Support\Facades\Hash;
 Route::post('/reset-password', function (Request $request) {
     $request->validate([
         'token' => 'required',
-        'phone' => 'required|string|min:10',
+        'phone' => 'nullable|string|min:10|required_without:email',
+        'email' => 'nullable|email|required_without:phone',
         'password' => 'required|confirmed|min:8',
     ]);
 
     try {
-        // Find the user by phone number
-        $user = User::where('phone', $request->phone)->first();
-
-        if (!$user) {
-            return back()->withErrors(['phone' => 'No account found with this phone number.'])->withInput();
+        // Find the user by provided identifier
+        $user = null;
+        if ($request->filled('phone')) {
+            $user = User::where('phone', $request->phone)->first();
+            if (!$user) {
+                return back()->withErrors(['phone' => 'No account found with this phone number.'])->withInput();
+            }
+        } else if ($request->filled('email')) {
+            $user = User::where('email', $request->email)->first();
+            if (!$user) {
+                return back()->withErrors(['email' => 'No account found with this email.'])->withInput();
+            }
         }
 
         // Update the user's password
