@@ -38,5 +38,7 @@
     <script src="/assets/js/app.js"></script>
     
     @stack('scripts')
+
+    
 </body>
 </html>

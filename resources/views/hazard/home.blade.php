@@ -255,6 +255,34 @@
             margin-bottom: 0.5rem;
         }
     }
+    .content-wrapper {
+        padding-top: 48px;
+        width: 100%;
+        height: calc(100vh - 48px);
+        background-color: #f8f9fa;
+        overflow-y: auto;
+    }
+    .residents-btn {
+        display: inline-block;
+        width: 100%;
+        margin-top: 12px;
+        background: #007bff;
+        color: #fff !important;
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        text-align: center;
+        border: 1px solid rgba(0,0,0,0.05);
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        transition: background .15s ease, transform .05s ease;
+    }
+    .residents-btn:hover {
+        background: #0069d9;
+        transform: translateY(-1px);
+        color: #fff !important;
+        text-decoration: none;
+    }
 </style>
 
 <div class="content-wrapper">
@@ -388,6 +416,9 @@
                         <div class="stats-card text-center">
                             <div class="stats-number">3,825</div>
                             <div class="text-muted">Total Population</div>
+                            <a href="{{ route('residents.index') }}" class="residents-btn" role="button" aria-label="Show Residents List">
+                                <i class="fas fa-users me-2"></i> Show Residents List
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3">

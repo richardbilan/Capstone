@@ -163,7 +163,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="{{ route('hazard.map') }}">
+                    <a class="nav-link text-dark" href="{{ route('disaster.maps') }}">
                         <i class="fas fa-map-marked-alt me-1"></i>Barangay Hazard Map
                     </a>
                 </li>
@@ -180,6 +180,11 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="{{ route('evacuation') }}">
                         <i class="fas fa-running me-1"></i>Evacuation
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{{ route('hazard.mou.index') }}">
+                        <i class="fas fa-home me-1"></i>MOU Home
                     </a>
                 </li>
             </ul>

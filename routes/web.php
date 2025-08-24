@@ -110,33 +110,32 @@ Route::middleware([App\Http\Middleware\Authenticate::class])->group(function () 
     Route::get('/admin/dashboard', function () {
         return view('hazard.home');
     })->name('admin.dashboard');
-
-    // User dashboard routes
-    Route::get('/user/dashboard', function () {
-        return view('user.dashboard');
+    
+    Route::prefix('user')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('user.disaster-maps');  // default page = disaster maps
     })->name('user.dashboard');
 
-    // Main dashboard route
-    Route::get('/dashboard', function () {
-        return view('user.dashboard');
-    })->name('dashboard');
+    Route::get('/disaster-maps', function () {
+        return view('user.disaster-maps');
+    })->name('disaster.maps');
 
-    // Hazard-related routes
-    Route::get('/hazard-map', function () {
-        return view('hazard.hazard-map');
-    })->name('hazard.map');
+    Route::get('/evacuation-centers', function () {
+        return view('user.evacuation-centers');
+    })->name('evacuation.centers');
 
-    Route::get('/sms', function () {
-        return view('hazard.sms');
-    })->name('sms');
+    Route::get('/mou-homes', function () {
+        return view('user.mou-homes');
+    })->name('mou.homes');
 
-    Route::get('/contacts', function () {
-        return view('hazard.contacts');
-    })->name('contacts');
+    Route::get('/support-tickets', function () {
+        return view('user.support-tickets');
+    })->name('support.tickets');
 
-    Route::get('/evacuation', function () {
-        return view('hazard.evacuation');
-    })->name('evacuation');
+    Route::get('/notifications', function () {
+        return view('user.notifications');
+    })->name('notifications');
+});
 
     // Profile routes
     Route::get('/profile', function () {
@@ -215,3 +214,64 @@ Route::middleware([App\Http\Middleware\Authenticate::class])->group(function () 
         return view('hazard.barangay3');
     })->name('barangay.barangay3');
 }); // End of auth middleware group
+
+use App\Http\Controllers\ResidentController;
+
+Route::get('/residents', [ResidentController::class, 'index'])->name('residents.index');
+Route::post('/residents', [ResidentController::class, 'store'])->name('residents.store');
+Route::put('/residents/{resident}', [ResidentController::class, 'update'])->name('residents.update');
+Route::delete('/residents/{resident}', [ResidentController::class, 'destroy'])->name('residents.destroy');
+Route::resource('residents', ResidentController::class);
+
+
+use App\Http\Controllers\EmergencyContactController;
+
+// Routes that require authentication
+Route::middleware(['auth'])->group(function () {
+
+    // Show all contacts
+    Route::get('/contacts', [EmergencyContactController::class, 'index'])->name('contacts');
+
+    // Store new contact
+    Route::post('/contacts', [EmergencyContactController::class, 'store'])->name('contacts.store');
+
+    // Edit contact (returns JSON)
+    Route::get('/contacts/{id}/edit', [EmergencyContactController::class, 'edit'])->name('contacts.edit');
+
+    // Update contact
+    Route::put('/contacts/{id}', [EmergencyContactController::class, 'update'])->name('contacts.update');
+
+    // Delete contact
+    Route::delete('/contacts/{id}', [EmergencyContactController::class, 'destroy'])->name('contacts.destroy');
+});
+
+Route::get('/sms', function () {
+    return view('hazard.sms');
+})->name('sms');
+
+Route::get('/evacuation', function () {
+    return view('hazard.evacuation');
+})->name('evacuation');
+
+use App\Http\Controllers\MouHomeController;
+
+// User: submit MOU
+Route::get('/mou-homes', [MouHomeController::class,'create'])->name('mou.create');
+Route::post('/mou-homes', [MouHomeController::class,'store'])->name('mou.store');
+
+// Admin: view submissions
+Route::get('/hazard/mou-homes', [MouHomeController::class,'index'])->name('hazard.mou.index');
+Route::post('/hazard/mou-homes/{mouHome}/status', [MouHomeController::class,'updateStatus'])->name('hazard.mou.updateStatus');
+
+// User submits MOU/MOA application
+Route::post('/mou-homes/store', [App\Http\Controllers\MouHomeController::class, 'store'])->name('user.mou.store');
+
+// Admin view MOU/MOA applications
+Route::get('/hazard/mou-homes', [App\Http\Controllers\MouHomeController::class, 'index'])->name('hazard.mou.index');
+
+// Update status
+Route::post('/hazard/mou-homes/{mou}/update-status', [App\Http\Controllers\MouHomeController::class, 'updateStatus'])->name('hazard.mou.updateStatus');
+
+// Update MOU/MOA application status
+Route::post('/hazard/mou/update-status/{mouHome}', [MouHomeController::class, 'updateStatus'])
+    ->name('hazard.mou.updateStatus');
