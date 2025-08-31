@@ -25,7 +25,10 @@ class MouHomeController extends Controller
         'house_type' => 'required|string|max:50',
         'capacity' => 'required|string|max:20',
         'facilities' => 'array',
+<<<<<<< HEAD
         'other_facilities' => 'nullable|string',
+=======
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
         'notes' => 'nullable|string',
         'agreement' => 'required', // keep validation
     ]);
@@ -33,6 +36,7 @@ class MouHomeController extends Controller
     // Convert checkbox to boolean (1 or 0)
     $data['agreement'] = $request->has('agreement') ? 1 : 0;
 
+<<<<<<< HEAD
     // Store facilities as JSON array
     $facilities = $request->input('facilities', []);
     // Merge additional "other facilities" (comma-separated)
@@ -53,12 +57,21 @@ class MouHomeController extends Controller
         return $v;
     };
     $data['facilities'] = array_values(array_unique(array_map($normalize, $facilities)));
+=======
+    // Map facilities to boolean fields
+    $facilityFields = ['toilet', 'water', 'electricity', 'kitchen', 'parking', 'first_aid'];
+    $facilities = $request->input('facilities', []);
+    foreach ($facilityFields as $field) {
+        $data[$field] = in_array($field, $facilities) ? 1 : 0;
+    }
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 
     // Map form fields to database columns
     $data['homeowner_name'] = $data['full_name'];
     $data['additional_info'] = $data['notes'];
     $data['status'] = 'Pending';
 
+<<<<<<< HEAD
     // Only keep fillable fields for creation
     $createData = [
         'homeowner_name' => $data['homeowner_name'],
@@ -73,6 +86,9 @@ class MouHomeController extends Controller
     ];
 
     MouHome::create($createData);
+=======
+    MouHome::create($data);
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 
     return redirect()->back()->with('success', 'Your application has been submitted successfully!');
 }

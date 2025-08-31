@@ -34,6 +34,7 @@
         text-align: center;
     }
 
+<<<<<<< HEAD
     /* Active link styling */
     .compact-navbar .nav-link.active {
         color: #0d6efd !important; /* Bootstrap primary */
@@ -42,6 +43,8 @@
         border-radius: 0;
     }
 
+=======
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
     .compact-navbar .btn {
         padding: 0.2rem 0.5rem;
         font-size: 1rem;
@@ -166,32 +169,56 @@
             @if (!View::hasSection('hideNavbarLinks'))
             <ul class="navbar-nav flex-row align-items-center mb-0">
                 <li class="nav-item">
+<<<<<<< HEAD
                     <a class="nav-link text-dark {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}" aria-current="{{ request()->routeIs('home') ? 'page' : '' }}">
+=======
+                    <a class="nav-link text-dark" href="{{ route('home') }}">
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                         <i class="fas fa-home me-1"></i>Home
                     </a>
                 </li>
                 <li class="nav-item">
+<<<<<<< HEAD
                     <a class="nav-link text-dark {{ request()->routeIs('hazard.map') ? 'active' : '' }}" href="{{ route('hazard.map') }}" aria-current="{{ request()->routeIs('hazard.map') ? 'page' : '' }}">
+=======
+                    <a class="nav-link text-dark" href="{{ route('disaster.maps') }}">
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                         <i class="fas fa-map-marked-alt me-1"></i>Barangay Hazard Map
                     </a>
                 </li>
                 <li class="nav-item">
+<<<<<<< HEAD
                     <a class="nav-link text-dark {{ request()->routeIs('sms') ? 'active' : '' }}" href="{{ route('sms') }}" aria-current="{{ request()->routeIs('sms') ? 'page' : '' }}">
+=======
+                    <a class="nav-link text-dark" href="{{ route('sms') }}">
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                         <i class="fas fa-sms me-1"></i>SMS
                     </a>
                 </li>
                 <li class="nav-item">
+<<<<<<< HEAD
                     <a class="nav-link text-dark {{ request()->routeIs('contacts') ? 'active' : '' }}" href="{{ route('contacts') }}" aria-current="{{ request()->routeIs('contacts') ? 'page' : '' }}">
+=======
+                    <a class="nav-link text-dark" href="{{ route('contacts') }}">
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                         <i class="fas fa-address-book me-1"></i>Contacts
                     </a>
                 </li>
                 <li class="nav-item">
+<<<<<<< HEAD
                     <a class="nav-link text-dark {{ request()->routeIs('evacuation') ? 'active' : '' }}" href="{{ route('evacuation') }}" aria-current="{{ request()->routeIs('evacuation') ? 'page' : '' }}">
+=======
+                    <a class="nav-link text-dark" href="{{ route('evacuation') }}">
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                         <i class="fas fa-running me-1"></i>Evacuation
                     </a>
                 </li>
                 <li class="nav-item">
+<<<<<<< HEAD
                     <a class="nav-link text-dark {{ request()->routeIs('hazard.mou.*') || request()->routeIs('hazard.mou.index') ? 'active' : '' }}" href="{{ route('hazard.mou.index') }}" aria-current="{{ (request()->routeIs('hazard.mou.*') || request()->routeIs('hazard.mou.index')) ? 'page' : '' }}">
+=======
+                    <a class="nav-link text-dark" href="{{ route('hazard.mou.index') }}">
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                         <i class="fas fa-home me-1"></i>MOU Home
                     </a>
                 </li>

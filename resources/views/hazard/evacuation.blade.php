@@ -14,8 +14,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<<<<<<< HEAD
     <!-- Leaflet Routing Machine CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+=======
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 </head>
 <body>
 <div class="container mt-4"><br><br>
@@ -51,7 +54,10 @@
                 <button type="button" class="btn btn-warning" onclick="toggleMapView()">
                     <i class="fas fa-map me-1"></i>Satellite View
                 </button> <br>
+<<<<<<< HEAD
                 <!-- Import KML/KMZ removed per request -->
+=======
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                 <button class="btn btn-primary" onclick="openCoordinatorModal('add')">Add Coordinator</button>
                 <button class="btn btn-success" onclick="openCenterModal()">Add Center</button>
             </div>
@@ -374,6 +380,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<<<<<<< HEAD
 <!-- Leaflet Routing Machine JS -->
 <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
 <!-- Leaflet Draw CSS/JS for manual boundary digitizing -->
@@ -384,6 +391,8 @@
 <!-- JSZip for KMZ reading and togeojson for KML/KMZ -> GeoJSON conversion -->
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script src="https://unpkg.com/@tmcw/togeojson@5.7.0/dist/togeojson.umd.js"></script>
+=======
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 <!-- No Google Maps API key needed - using OpenStreetMap only -->
 
 <script>
@@ -393,6 +402,7 @@ let currentLocationMarker = null;
 let userLocation = null;
 let isSatelliteView = false;
 let editingRow = null;
+<<<<<<< HEAD
 let ilawodLayer = null;
 let ilawodBounds = null;
 let routingControl = null;
@@ -403,11 +413,14 @@ const MOU_ADDRESS = @json($mouAddress ?? null);
 const MOU_LAT = @json($mouLat ?? null);
 const MOU_LNG = @json($mouLng ?? null);
 const ILAWOD_GEOJSON_URL = "{{ asset('assets/geo/ilawod.geojson') }}?v={{ time() }}";
+=======
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 
 // Initialize map when the page loads
 document.addEventListener('DOMContentLoaded', function() {
     initializeEvacuationMap();
     loadEvacuationCentersData();
+<<<<<<< HEAD
     // Try to route to the provided MOU address when available
     if (MOU_ADDRESS || (MOU_LAT && MOU_LNG)) {
         // Slight delay to ensure map and bounds are ready
@@ -482,18 +495,31 @@ function initializeEvacuationMap() {
     // Initialize Leaflet map with zoom restrictions
     evacuationMap = L.map('evacuation-map', {
         zoomControl: true,
+=======
+});
+
+function initializeEvacuationMap() {
+    // Initialize Leaflet map with zoom restrictions
+    evacuationMap = L.map('evacuation-map', {
+        zoomControl: false,
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
         scrollWheelZoom: false,
         doubleClickZoom: false,
         boxZoom: false,
         keyboard: false,
         dragging: true
+<<<<<<< HEAD
     }).setView([13.1775283, 123.6449343], 16);
+=======
+    }).setView([13.1450, 123.6900], 14);
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 
     // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(evacuationMap);
 
+<<<<<<< HEAD
     // Configure zoom limits
     evacuationMap.setMinZoom(8);
     evacuationMap.setMaxZoom(20);
@@ -503,6 +529,12 @@ function initializeEvacuationMap() {
 
     // Drawing tools disabled per request
 
+=======
+    // Remove restrictive bounds to allow proper location viewing
+    evacuationMap.setMinZoom(8);
+    evacuationMap.setMaxZoom(20);
+
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
     // Add barangay location marker
     addBarangayLocationMarker();
     
@@ -510,6 +542,7 @@ function initializeEvacuationMap() {
     addEvacuationCentersToMap();
 }
 
+<<<<<<< HEAD
 // Load Ilawod boundary from local GeoJSON only, style it, fit and lock bounds
 async function loadIlawodOutline() {
     try {
@@ -663,6 +696,8 @@ function createOrUpdateRoute(originLatLng, destLatLng) {
     }).addTo(evacuationMap);
 }
 
+=======
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 function loadEvacuationCentersData() {
     // Evacuation centers data matching the table
     evacuationCenters = [
@@ -758,6 +793,7 @@ function loadEvacuationCentersData() {
 }
 
 function addBarangayLocationMarker() {
+<<<<<<< HEAD
     let barangayMarker = L.marker([13.1757857, 123.6497455], {
         icon: L.divIcon({
             html: '<div style="background: rgba(108,117,125,0.15); color: #343a40; padding: 6px 12px; border-radius: 16px; font-weight: 600; text-align: center; font-size: 12px; border: 1px solid rgba(108,117,125,0.6); backdrop-filter: blur(2px); cursor: pointer;">📍 BARANGAY ILAWOD<br><span style="font-weight:500;">Camalig, Albay</span></div>',
@@ -789,6 +825,27 @@ function addBarangayLocationMarker() {
     // Open description on hover, close when cursor leaves
     barangayMarker.on('mouseover', () => barangayMarker.openPopup());
     barangayMarker.on('mouseout', () => barangayMarker.closePopup());
+=======
+    let barangayMarker = L.marker([13.1450, 123.6900], {
+        icon: L.divIcon({
+            html: '<div style="background: #007bff; color: white; padding: 5px 10px; border-radius: 15px; font-weight: bold; text-align: center; font-size: 12px;">📍 BARANGAY ILAWOD<br>Camalig, Albay</div>',
+            className: 'barangay-marker',
+            iconSize: [160, 40],
+            iconAnchor: [80, 20]
+        })
+    }).addTo(evacuationMap);
+    
+    barangayMarker.bindPopup(`
+        <div style="text-align: center;">
+            <h6><strong>Barangay Ilawod</strong></h6>
+            <p>Municipality: Camalig<br>
+            Province: Albay<br>
+            Region: Bicol Region (Region V)<br>
+            Country: Philippines</p>
+            <small>Coordinates: 13.1592°N, 123.6804°E</small>
+        </div>
+    `);
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 }
 
 function addEvacuationCentersToMap() {
@@ -883,11 +940,14 @@ function getCurrentLocation() {
                     btn.innerHTML = '<i class="fas fa-location-arrow me-1"></i>Find My Location';
                     btn.disabled = false;
                 }, 2000);
+<<<<<<< HEAD
 
                 // If there's a destination address, re-route from new origin
                 if (MOU_ADDRESS) {
                     routeToMouAddressIfAny();
                 }
+=======
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
             },
             function(error) {
                 console.error('Error getting location:', error);
@@ -958,8 +1018,13 @@ function showLocationOnLeafletMap(lat, lng, accuracy = null) {
     evacuationMap.setView([lat, lng], 15);
     
     // If user is far from Barangay Ilawod, create a view that shows both locations
+<<<<<<< HEAD
     const barangayLat = 13.1757857;
     const barangayLng = 123.6497455;
+=======
+    const barangayLat = 13.1450;
+    const barangayLng = 123.6900;
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
     const distance = calculateDistance(lat, lng, barangayLat, barangayLng);
     
     // If more than 5km away, zoom out to show both locations

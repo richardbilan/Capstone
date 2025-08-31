@@ -76,6 +76,7 @@ Route::post('/register/check-resident', [AuthController::class, 'checkResident']
 Route::middleware([App\Http\Middleware\Authenticate::class])->group(function () {
     // Home route
     Route::get('/home', function () {
+<<<<<<< HEAD
         $totalPopulation = \App\Models\Resident::count();
         $pwdQuery = \App\Models\Resident::query()
             ->whereNotNull('type_of_disability')
@@ -91,6 +92,9 @@ Route::middleware([App\Http\Middleware\Authenticate::class])->group(function () 
             ->where('solo_parent','!=','')
             ->count();
         return view('hazard.home', compact('totalPopulation','pwdTotal','pwdFemale','pwdMale','maternalCount','soloParentCount'));
+=======
+        return view('hazard.home');
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
     })->name('home');
 
     // SuperAdmin routes
@@ -122,6 +126,7 @@ Route::middleware([App\Http\Middleware\Authenticate::class])->group(function () 
 
     // Admin dashboard route
     Route::get('/admin/dashboard', function () {
+<<<<<<< HEAD
         $totalPopulation = \App\Models\Resident::count();
         $pwdQuery = \App\Models\Resident::query()
             ->whereNotNull('type_of_disability')
@@ -143,6 +148,10 @@ Route::middleware([App\Http\Middleware\Authenticate::class])->group(function () 
     Route::get('/hazard-map', function () {
         return view('hazard.hazard-map');
     })->name('hazard.map');
+=======
+        return view('hazard.home');
+    })->name('admin.dashboard');
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
     
     Route::prefix('user')->group(function () {
     Route::get('/dashboard', function () {
@@ -282,6 +291,7 @@ Route::get('/sms', function () {
     return view('hazard.sms');
 })->name('sms');
 
+<<<<<<< HEAD
 Route::get('/evacuation', function (Request $request) {
     // Optional address parameter for routing to a specific MOU evacuation address
     $mouAddress = $request->query('address');
@@ -297,6 +307,13 @@ Route::get('/evacuation', function (Request $request) {
 
 use App\Http\Controllers\MouHomeController;
 use App\Http\Controllers\HazardGeometryController;
+=======
+Route::get('/evacuation', function () {
+    return view('hazard.evacuation');
+})->name('evacuation');
+
+use App\Http\Controllers\MouHomeController;
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 
 // User: submit MOU
 Route::get('/mou-homes', [MouHomeController::class,'create'])->name('mou.create');
@@ -318,6 +335,7 @@ Route::post('/hazard/mou-homes/{mou}/update-status', [App\Http\Controllers\MouHo
 // Update MOU/MOA application status
 Route::post('/hazard/mou/update-status/{mouHome}', [MouHomeController::class, 'updateStatus'])
     ->name('hazard.mou.updateStatus');
+<<<<<<< HEAD
 
 // Hazard geometries API (protected)
 Route::middleware([App\Http\Middleware\Authenticate::class])->group(function () {
@@ -326,3 +344,5 @@ Route::middleware([App\Http\Middleware\Authenticate::class])->group(function () 
     Route::put('/api/hazards/{hazard}', [HazardGeometryController::class, 'update'])->name('hazards.update');
     Route::delete('/api/hazards/{hazard}', [HazardGeometryController::class, 'destroy'])->name('hazards.destroy');
 });
+=======
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5

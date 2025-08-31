@@ -153,6 +153,7 @@ body > svg, svg[width], svg[height], svg[style*="position:absolute"], svg[style*
         </option>
       @endfor
     </select>
+<<<<<<< HEAD
 
     <label style="font-size:.9rem; margin-left:.5rem">Filter by Status:</label>
     <select name="filter" onchange="this.form.submit()" 
@@ -165,6 +166,8 @@ body > svg, svg[width], svg[height], svg[style*="position:absolute"], svg[style*
       <option value="Disability" {{ $f==='disability' ? 'selected' : '' }}>Disability</option>
       <option value="Maternal" {{ $f==='maternal' ? 'selected' : '' }}>Maternal</option>
     </select>
+=======
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
   </div>
 
   {{-- Right: Search + Icons --}}
@@ -180,7 +183,11 @@ body > svg, svg[width], svg[height], svg[style*="position:absolute"], svg[style*
     </button>
 
     {{-- Clear Icon Button (only show if active) --}}
+<<<<<<< HEAD
     @if(request()->has('search') || request()->has('purok') || request()->has('filter'))
+=======
+    @if(request()->has('search') || request()->has('purok'))
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
       <a href="{{ route('residents.index') }}" class="btn btn-ghost" title="Clear Search"
          style="padding:.4rem .6rem;display:flex;align-items:center;justify-content:center">
         ✖
@@ -214,7 +221,11 @@ body > svg, svg[width], svg[height], svg[style*="position:absolute"], svg[style*
           <tr style="border-top:1px solid #eef2f7">
             <td style="padding:.6rem">{{ $r->id }}</td>
             <td style="padding:.6rem">{{ $r->fullname ?? trim($r->firstname . ' ' . ($r->middlename ?: '') . ' ' . $r->surname) }}</td>
+<<<<<<< HEAD
             <td style="padding:.6rem">{{ $r->birthday ? \Carbon\Carbon::parse($r->birthday)->format('m/d/Y') : '' }}</td>
+=======
+            <td style="padding:.6rem">{{ $r->birthday }}</td>
+>>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
             <td style="padding:.6rem">{{ $r->age }}</td>
             <td style="padding:.6rem">{{ $r->gender }}</td>
             <td style="padding:.6rem">{{ $r->civil_status }}</td>
