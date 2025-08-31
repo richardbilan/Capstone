@@ -1,0 +1,119 @@
+/* hazard-buttons.css */
+
+/* General button styles */
+.hazard-filter-buttons .hazard-btn {
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    margin: 3px;
+    border-width: 2px; /* slightly thicker border */
+}
+
+/* Hover effect: light tint, not full background */
+.hazard-filter-buttons .hazard-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    opacity: 0.85; /* light hover effect */
+}
+
+/* Active button state */
+.hazard-filter-buttons .hazard-btn.active {
+    color: #000000 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+/* Individual hazard colors with light hover tint */
+.hazard-btn[data-hazard="none"] {
+    border-color: #6c757d70;
+    color: #6c757d;
+}
+.hazard-btn[data-hazard="none"].active,
+.hazard-btn[data-hazard="none"]:hover {
+    background-color: rgba(108, 117, 125, 0.25);
+}
+
+.hazard-btn[data-hazard="all"] {
+    border-color: #0d6dfd63;
+    color: #0d6dfdab;
+}
+.hazard-btn[data-hazard="all"].active,
+.hazard-btn[data-hazard="all"]:hover {
+    background-color: rgba(13, 109, 253, 0.25);
+}
+
+.hazard-btn[data-hazard="flood"],
+.hazard-btn[data-hazard="fire"] {
+    border-color: #dc35465b;
+    color: #dc3546d7;
+}
+.hazard-btn[data-hazard="flood"].active,
+.hazard-btn[data-hazard="flood"]:hover,
+.hazard-btn[data-hazard="fire"].active,
+.hazard-btn[data-hazard="fire"]:hover {
+    background-color: rgba(220, 53, 70, 0.25);
+}
+
+.hazard-btn[data-hazard="landslide"] {
+    border-color: #fd7e14;
+    color: #fd7e14;
+}
+.hazard-btn[data-hazard="landslide"].active,
+.hazard-btn[data-hazard="landslide"]:hover {
+    background-color: rgba(253, 126, 20, 0.25);
+}
+
+.hazard-btn[data-hazard="ashfall"] {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+.hazard-btn[data-hazard="ashfall"].active,
+.hazard-btn[data-hazard="ashfall"]:hover {
+    background-color: rgba(108, 117, 125, 0.25);
+}
+
+.hazard-btn[data-hazard="lahar"] {
+    border-color: #5c4033;
+    color: #5c4033;
+}
+.hazard-btn[data-hazard="lahar"].active,
+.hazard-btn[data-hazard="lahar"]:hover {
+    background-color: rgba(92, 64, 51, 0.25);
+}
+
+.hazard-btn[data-hazard="mudflow"] {
+    border-color: #7b3f00;
+    color: #7b3f00;
+}
+.hazard-btn[data-hazard="mudflow"].active,
+.hazard-btn[data-hazard="mudflow"]:hover {
+    background-color: rgba(123, 63, 0, 0.25);
+}
+
+.hazard-btn[data-hazard="wind"] {
+    border-color: #0d6efd;
+    color: #0d6efd;
+}
+.hazard-btn[data-hazard="wind"].active,
+.hazard-btn[data-hazard="wind"]:hover {
+    background-color: rgba(13, 110, 253, 0.25);
+}
+
+.hazard-btn[data-hazard="routes"] {
+    border-color: #198754;
+    color: #198754;
+}
+.hazard-btn[data-hazard="routes"].active,
+.hazard-btn[data-hazard="routes"]:hover {
+    background-color: rgba(25, 135, 84, 0.25);
+}
+
+.hazard-btn[data-hazard="evacuation"] {
+    border-color: #0dcaf0;
+    color: #0dcaf0;
+}
+.hazard-btn[data-hazard="evacuation"].active,
+.hazard-btn[data-hazard="evacuation"]:hover {
+    background-color: rgba(13, 202, 240, 0.25);
+}
