@@ -36,7 +36,6 @@
                     <td>{{ $home->capacity }}</td>
                     <td>
                         @php
-<<<<<<< HEAD
                             $labels = [
                                 'toilet' => 'Toilet',
                                 'water' => 'Water',
@@ -61,17 +60,6 @@
                             }
                         @endphp
                         {{ implode(', ', $values) }}
-=======
-                            $facilities = [];
-                            if($home->toilet) $facilities[] = 'Toilet';
-                            if($home->water) $facilities[] = 'Water';
-                            if($home->electricity) $facilities[] = 'Electricity';
-                            if($home->kitchen) $facilities[] = 'Kitchen';
-                            if($home->parking) $facilities[] = 'Parking';
-                            if($home->first_aid) $facilities[] = 'First Aid';
-                        @endphp
-                        {{ implode(', ', $facilities) }}
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                     </td>
                     <td>
                         @php
@@ -85,11 +73,7 @@
                     </td>
                     <td>{{ $home->created_at->format('M d, Y H:i') }}</td>
                     <td>
-<<<<<<< HEAD
     <form action="{{ route('hazard.mou.updateStatus', $home) }}" method="POST" class="d-flex flex-wrap gap-1 justify-content-center">
-=======
-    <form action="{{ route('hazard.mou.updateStatus', $home) }}" method="POST" class="d-flex gap-1 justify-content-center">
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
         @csrf
         <select name="status" class="form-select form-select-sm">
             <option value="Pending" @if($home->status=='Pending') selected @endif>Pending</option>
@@ -97,10 +81,7 @@
             <option value="Rejected" @if($home->status=='Rejected') selected @endif>Rejected</option>
         </select>
         <button class="btn btn-sm btn-primary" type="submit">Update</button>
-<<<<<<< HEAD
         <a class="btn btn-sm btn-success" href="{{ route('evacuation', ['address' => $home->address]) }}" target="_blank">View on Map</a>
-=======
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
     </form>
 </td>
 

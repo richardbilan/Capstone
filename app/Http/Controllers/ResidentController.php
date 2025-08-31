@@ -12,21 +12,13 @@ class ResidentController extends Controller
     {
        $purok = $request->get('purok');
        $search = $request->get('search');
-<<<<<<< HEAD
        $statusFilter = $request->get('filter'); // new status filter
-=======
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 
         $query = Resident::query();
 
         if ($purok) {
-<<<<<<< HEAD
             $purokValue = preg_match('/^\d+$/', $purok) ? 'Purok ' . $purok : $purok;
             $query->where('purok', $purokValue);
-=======
-            $filter = preg_match('/^\d+$/', $purok) ? 'Purok ' . $purok : $purok;
-            $query->where('purok', $filter);
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
         }
 
         if (!empty($search)) {
@@ -38,7 +30,6 @@ class ResidentController extends Controller
             });
        }
 
-<<<<<<< HEAD
        // apply additional filters
        if (!empty($statusFilter)) {
            switch (strtolower($statusFilter)) {
@@ -63,11 +54,6 @@ class ResidentController extends Controller
         $residents = $query->orderBy('id', 'asc')->paginate(15)->withQueryString();
 
         return view('residents.index', compact('residents', 'purok', 'search', 'statusFilter'));
-=======
-        $residents = $query->orderBy('id', 'asc')->paginate(15)->withQueryString();
-
-        return view('residents.index', compact('residents', 'purok', 'search'));
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
     }
     
 public function store(Request $request)

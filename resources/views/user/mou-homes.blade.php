@@ -74,7 +74,6 @@
                         <div class="col-md-6">
                             <div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="kitchen" name="facilities[]" value="kitchen"><label class="form-check-label" for="kitchen">Kitchen/Cooking Area</label></div>
                             <div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="parking" name="facilities[]" value="parking"><label class="form-check-label" for="parking">Parking/Vehicle Access</label></div>
-<<<<<<< HEAD
                             <div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="firstaid" name="facilities[]" value="first_aid"><label class="form-check-label" for="firstaid">First Aid Supplies</label></div>
                         </div>
                     </div>
@@ -86,12 +85,6 @@
                         <small class="text-muted">Separate multiple items with commas. These will be saved along with the checked facilities.</small>
                     </div>
 
-=======
-                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="firstaid" name="facilities[]" value="firstaid"><label class="form-check-label" for="firstaid">First Aid Supplies</label></div>
-                        </div>
-                    </div>
-
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                     <!-- Additional Notes -->
                     <div class="mb-3 mt-4">
                         <label class="form-label"><i class="fas fa-comment me-1"></i>Additional Notes</label>

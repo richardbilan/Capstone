@@ -64,7 +64,6 @@
 
         <!-- Legend -->
         <div class="card-footer">
-<<<<<<< HEAD
             <style>
                 .legend-section-title{font-weight:700;margin-bottom:6px}
                 .legend-items{display:flex;flex-wrap:wrap;gap:12px 20px}
@@ -176,19 +175,6 @@
                         </div>
                     </div>
                 </div>
-=======
-            <div id="legendContainer" class="d-flex flex-wrap gap-3">
-                <span><i class="fas fa-square text-danger me-1"></i> Flood</span>
-                <span><i class="fas fa-square text-warning me-1"></i> Landslide</span>
-                <span><i class="fas fa-square text-danger me-1"></i> Fire</span>
-                <span><i class="fas fa-square text-secondary me-1"></i> Ashfall</span>
-                <span><i class="fas fa-square text-dark me-1"></i> Lahar</span>
-                <span><i class="fas fa-square text-brown me-1"></i> Mudflow</span>
-                <span><i class="fas fa-square text-primary me-1"></i> Wind</span>
-                <span><i class="fas fa-home text-success me-1"></i> Evacuation Center</span>
-                <span><i class="fas fa-route text-success me-1"></i> Evacuation Routes</span>
-                <span><i class="fas fa-user text-primary me-1"></i> Your Location</span>
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
             </div>
         </div>
 
@@ -230,7 +216,6 @@ let evacuationRoutes = {};
 let purokMarkers = {};
 let ilawodBounds = null;
 
-<<<<<<< HEAD
 // Toggle for any pre-defined/sample data (set to false to remove all predefined markers)
 const LOAD_SAMPLE_DATA = false;
 
@@ -390,8 +375,6 @@ async function loadHazardGeometries(type = null) {
     }
 }
 
-=======
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 // Initialize routes visibility
 window.routesVisible = true;
 
@@ -443,7 +426,6 @@ function initializeMap() {
     
     map = L.map('disaster-map').setView(ilawodCoords, 15);
     
-<<<<<<< HEAD
     // Base map layers
     const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
@@ -465,17 +447,10 @@ function initializeMap() {
         'Topographic (Esri)': esriTopo
     };
     L.control.layers(baseMaps, {}, { position: 'topright', collapsed: true }).addTo(map);
-=======
-    // Add tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
     
     // Add Brgy. Ilawod boundary outline and focus the map
     addBarangayOutline();
     
-<<<<<<< HEAD
     // Optionally load sample data (disabled by default)
     if (LOAD_SAMPLE_DATA) {
         addEvacuationCenters();
@@ -492,19 +467,6 @@ function initializeMap() {
     loadMapFeaturesForUsers();
     // Refresh every 30s to reflect admin changes automatically
     window._mapFeaturesRefreshTimer = setInterval(loadMapFeaturesForUsers, 30000);
-=======
-    // Add sample evacuation centers
-    addEvacuationCenters();
-    
-    // Add sample risk areas
-    addRiskAreas();
-    
-    // Add Purok markers
-    addPurokMarkers();
-    
-    // Add evacuation routes
-    addEvacuationRoutes();
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 }
 
 // Add evacuation centers to the map
@@ -1075,7 +1037,6 @@ function initializeEventListeners() {
         // Show based on selected filter
         switch(type) {
             case 'all':
-<<<<<<< HEAD
                 // Ensure hazards are loaded, then show all
                 (async () => {
                     if (Object.keys(hazardLayers).length === 0) {
@@ -1083,10 +1044,6 @@ function initializeEventListeners() {
                     }
                     Object.values(hazardLayers).forEach(layer => map.addLayer(layer));
                 })();
-=======
-                // Show everything except routes (routes have their own control)
-                Object.values(hazardLayers).forEach(layer => map.addLayer(layer));
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                 evacuationCenters.forEach(center => map.addLayer(center.marker));
                 Object.values(purokMarkers).forEach(marker => map.addLayer(marker));
                 break;
@@ -1108,7 +1065,6 @@ function initializeEventListeners() {
             case 'lahar':
             case 'mudflow':
             case 'wind':
-<<<<<<< HEAD
                 (async () => {
                     if (!hazardLayers[type]) {
                         await loadHazardGeometries(type);
@@ -1117,11 +1073,6 @@ function initializeEventListeners() {
                         map.addLayer(hazardLayers[type]);
                     }
                 })();
-=======
-                if (hazardLayers[type]) {
-                    map.addLayer(hazardLayers[type]);
-                }
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                 break;
         }
     }

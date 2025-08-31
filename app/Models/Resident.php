@@ -16,14 +16,11 @@ class Resident extends Model
         'purok','solo_parent','type_of_disability','maternal_status','remark',
     ];
 
-<<<<<<< HEAD
     // Cast birthday as a date (Y-m-d) for safe formatting in views and JSON
     protected $casts = [
         'birthday' => 'date',
     ];
 
-=======
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
     // Accessor: Full name
     public function getFullnameAttribute()
     {

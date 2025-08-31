@@ -4,10 +4,7 @@
 
 @section('additional_styles')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<<<<<<< HEAD
     <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
-=======
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
     <style>
         /* Disaster Management Dashboard Custom Styles */
         :root {
@@ -82,11 +79,6 @@
             top: 4rem;
         }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
         /* Hazard Sidebar */
         .hazard-sidebar {
             position: fixed;
@@ -115,14 +107,11 @@
             margin-left: 300px;
         }
 
-<<<<<<< HEAD
         /* Shift main map area when sidebar is open (actual container on this page) */
         .map-main-container.sidebar-open {
             margin-left: 300px;
         }
 
-=======
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
         /* Hide zoom controls completely */
         .leaflet-control-zoom {
             display: none !important;
@@ -386,7 +375,6 @@
         .infrastructure-marker i {
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
-<<<<<<< HEAD
 
         /* Draft action bar (Save/Cancel new drawings) */
         .draft-actions {
@@ -399,37 +387,24 @@
         .draft-actions .btn {
             margin-right: 6px;
         }
-=======
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
     </style>
 @endsection
 
 @section('additional_scripts')
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<<<<<<< HEAD
     <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
     <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
-=======
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Burger menu functionality
             const burgerBtn = document.getElementById('burgerMenuBtn');
             const sidebar = document.getElementById('hazardSidebar');
-<<<<<<< HEAD
             // On this page the main wrapper is .map-main-container
             const mapContainer = document.querySelector('.map-main-container');
 
             burgerBtn.addEventListener('click', function() {
                 sidebar.classList.toggle('active');
                 mapContainer?.classList.toggle('sidebar-open');
-=======
-            const mapContainer = document.querySelector('.map-container');
-
-            burgerBtn.addEventListener('click', function() {
-                sidebar.classList.toggle('active');
-                mapContainer.classList.toggle('sidebar-open');
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                 burgerBtn.classList.toggle('sidebar-open');
                 
                 // Invalidate map size after transition
@@ -440,7 +415,6 @@
                 }, 300);
             });
 
-<<<<<<< HEAD
             // --- Generic point placement helpers (used by Infrastructures and PWDs) ---
             let pointPlacement = null; // { category, typeKey, type, handler }
             function startPointPlacement({ category, typeKey, type }) {
@@ -499,8 +473,6 @@
                 }
             }
 
-=======
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
             // Legend toggle functionality
             const legendToggle = document.getElementById('legendToggle');
             const legendContent = document.getElementById('legendContent');
@@ -519,13 +491,10 @@
 
             // Initialize map
             initializeHazardMap();
-<<<<<<< HEAD
             // Load existing infrastructure/routes/PWD features from DB on page load
             if (typeof loadMapFeatures === 'function') {
                 loadMapFeatures();
             }
-=======
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
         });
 
         function initializeHazardMap() {
@@ -536,7 +505,6 @@
             }
 
             // Initialize Leaflet map - Ilawod, Camalig, Albay, Philippines
-<<<<<<< HEAD
             const map = L.map('hazardMap').setView([13.1768, 123.6507], 16); // Ilawod, Camalig, Albay coordinates
 
             // Base layers: Streets + Satellite
@@ -1230,410 +1198,20 @@
                     if (bounds) window.mapInstance.fitBounds(bounds, { padding: [20, 20] });
                 }
             }
-=======
-            const map = L.map('hazard-map').setView([13.1768, 123.6507], 16); // Ilawod, Camalig, Albay coordinates
-
-            // Add tile layer
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
-
-            // Database structure for Puroks in Ilawod, Camalig, Albay
-            const purokData = [
-                {
-                    id: 1,
-                    name: 'Purok 1',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay',
-                    color: '#000000',
-                    coordinates: [
-                        [13.1788, 123.6487],
-                        [13.1798, 123.6497],
-                        [13.1808, 123.6507],
-                        [13.1798, 123.6517],
-                        [13.1788, 123.6507],
-                        [13.1788, 123.6487]
-                    ]
-                },
-                {
-                    id: 2,
-                    name: 'Purok 2',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay',
-                    color: '#FF851B',
-                    coordinates: [
-                        [13.1798, 123.6497],
-                        [13.1808, 123.6507],
-                        [13.1818, 123.6517],
-                        [13.1808, 123.6527],
-                        [13.1798, 123.6517],
-                        [13.1798, 123.6497]
-                    ]
-                },
-                {
-                    id: 3,
-                    name: 'Purok 3',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay',
-                    color: '#0074D9',
-                    coordinates: [
-                        [13.1748, 123.6487],
-                        [13.1758, 123.6497],
-                        [13.1768, 123.6507],
-                        [13.1758, 123.6517],
-                        [13.1748, 123.6507],
-                        [13.1748, 123.6487]
-                    ]
-                },
-                {
-                    id: 4,
-                    name: 'Purok 4',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay',
-                    color: '#B10DC9',
-                    coordinates: [
-                        [13.1758, 123.6497],
-                        [13.1768, 123.6507],
-                        [13.1778, 123.6517],
-                        [13.1768, 123.6527],
-                        [13.1758, 123.6517],
-                        [13.1758, 123.6497]
-                    ]
-                },
-                {
-                    id: 5,
-                    name: 'Purok 5',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay',
-                    color: '#FFDC00',
-                    coordinates: [
-                        [13.1768, 123.6507],
-                        [13.1778, 123.6517],
-                        [13.1788, 123.6527],
-                        [13.1778, 123.6537],
-                        [13.1768, 123.6527],
-                        [13.1768, 123.6507]
-                    ]
-                }
-            ];
-
-            // Don't add Purok polygons initially - controlled by checkboxes
-
-            // Database structure for Hazard Zones in Ilawod, Camalig, Albay
-            const hazardZones = [
-                {
-                    id: 1,
-                    name: 'Flood Prone Area',
-                    type: 'flood',
-                    color: '#0d6efd',
-                    severity: 'high',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay',
-                    coordinates: [
-                        [13.1748, 123.6487],
-                        [13.1758, 123.6497],
-                        [13.1768, 123.6507],
-                        [13.1758, 123.6517],
-                        [13.1748, 123.6507],
-                        [13.1748, 123.6487]
-                    ]
-                },
-                {
-                    id: 2,
-                    name: 'Landslide Prone Area',
-                    type: 'landslide',
-                    color: '#ffc107',
-                    severity: 'high',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay',
-                    coordinates: [
-                        [13.1768, 123.6477],
-                        [13.1778, 123.6487],
-                        [13.1788, 123.6497],
-                        [13.1778, 123.6507],
-                        [13.1768, 123.6497],
-                        [13.1768, 123.6477]
-                    ]
-                },
-                {
-                    id: 3,
-                    name: 'Fire Hazard Zone',
-                    type: 'fire',
-                    color: '#dc3545',
-                    severity: 'medium',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay',
-                    coordinates: [
-                        [13.1778, 123.6497],
-                        [13.1788, 123.6507],
-                        [13.1798, 123.6517],
-                        [13.1788, 123.6527],
-                        [13.1778, 123.6517],
-                        [13.1778, 123.6497]
-                    ]
-                },
-                {
-                    id: 4,
-                    name: 'Ashfall Zone',
-                    type: 'ashfall',
-                    color: '#6c757d',
-                    severity: 'high',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay',
-                    coordinates: [
-                        [13.1738, 123.6477],
-                        [13.1748, 123.6487],
-                        [13.1758, 123.6497],
-                        [13.1748, 123.6507],
-                        [13.1738, 123.6497],
-                        [13.1738, 123.6477]
-                    ]
-                },
-                {
-                    id: 5,
-                    name: 'Lahar Flow Zone',
-                    type: 'lahar',
-                    color: '#343a40',
-                    severity: 'high',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay',
-                    coordinates: [
-                        [13.1758, 123.6517],
-                        [13.1768, 123.6527],
-                        [13.1778, 123.6537],
-                        [13.1768, 123.6547],
-                        [13.1758, 123.6537],
-                        [13.1758, 123.6517]
-                    ]
-                },
-                {
-                    id: 6,
-                    name: 'Mudflow Zone',
-                    type: 'mudflow',
-                    color: '#198754',
-                    severity: 'medium',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay',
-                    coordinates: [
-                        [13.1788, 123.6517],
-                        [13.1798, 123.6527],
-                        [13.1808, 123.6537],
-                        [13.1798, 123.6547],
-                        [13.1788, 123.6537],
-                        [13.1788, 123.6517]
-                    ]
-                },
-                {
-                    id: 7,
-                    name: 'Wind Hazard Zone',
-                    type: 'wind',
-                    color: '#0dcaf0',
-                    severity: 'medium',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay',
-                    coordinates: [
-                        [13.1798, 123.6537],
-                        [13.1808, 123.6547],
-                        [13.1818, 123.6557],
-                        [13.1808, 123.6567],
-                        [13.1798, 123.6557],
-                        [13.1798, 123.6537]
-                    ]
-                }
-            ];
-
-            // Don't add hazard zones initially - controlled by checkboxes
-
-            // Define evacuation centers - Matching dashboard data
-            const evacuationCenters = [
-                { name: 'Barangay Ilawod Elementary School', coords: [13.1381, 123.7274], status: 'Open', capacity: 200, current: 45, type: 'school' },
-                { name: 'Barangay Hall', coords: [13.1391, 123.7284], status: 'Open', capacity: 100, current: 25, type: 'government' },
-                { name: 'Community Chapel', coords: [13.1401, 123.7294], status: 'Near Full', capacity: 150, current: 120, type: 'religious' },
-                { name: 'Garcia Family Home', coords: [13.1385, 123.7280], status: 'Closed', capacity: 50, current: 0, type: 'mou' },
-                { name: 'Santos Residence', coords: [13.1395, 123.7290], status: 'Open', capacity: 30, current: 15, type: 'mou' }
-            ];
-
-            // Infrastructure points in Ilawod, Camalig, Albay - Database ready structure
-            const infrastructurePoints = [
-                { 
-                    id: 1,
-                    name: 'Barangay Hall Ilawod', 
-                    coords: [13.1768, 123.6507], 
-                    icon: 'fas fa-building', 
-                    color: '#0074D9', 
-                    type: 'government',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay'
-                },
-                { 
-                    id: 2,
-                    name: 'Ilawod Elementary School', 
-                    coords: [13.1778, 123.6517], 
-                    icon: 'fas fa-school', 
-                    color: '#FFDC00', 
-                    type: 'education',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay'
-                },
-                { 
-                    id: 3,
-                    name: 'Ilawod Chapel', 
-                    coords: [13.1758, 123.6497], 
-                    icon: 'fas fa-church', 
-                    color: '#B10DC9', 
-                    type: 'religious',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay'
-                },
-                { 
-                    id: 4,
-                    name: 'Health Center', 
-                    coords: [13.1748, 123.6507], 
-                    icon: 'fas fa-hospital', 
-                    color: '#DC2626', 
-                    type: 'health',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay'
-                },
-                { 
-                    id: 5,
-                    name: 'Multi-Purpose Hall', 
-                    coords: [13.1788, 123.6527], 
-                    icon: 'fas fa-building-columns', 
-                    color: '#059669', 
-                    type: 'community',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay'
-                },
-                { 
-                    id: 6,
-                    name: 'Day Care Center', 
-                    coords: [13.1738, 123.6517], 
-                    icon: 'fas fa-child', 
-                    color: '#F59E0B', 
-                    type: 'education',
-                    barangay: 'Ilawod',
-                    municipality: 'Camalig',
-                    province: 'Albay'
-                }
-            ];
-
-            // Don't add infrastructure or evacuation centers initially - controlled by checkboxes
-
-            // Define evacuation routes - Matching dashboard structure
-            const evacuationRoutes = [
-                {
-                    name: 'Primary Route 1',
-                    type: 'primary',
-                    color: '#00FF00',
-                    weight: 4,
-                    coordinates: [
-                        [13.1351, 123.7264],
-                        [13.1371, 123.7284],
-                        [13.1391, 123.7284],
-                        [13.1411, 123.7304]
-                    ]
-                },
-                {
-                    name: 'Secondary Route 1',
-                    type: 'secondary',
-                    color: '#FFD700',
-                    weight: 3,
-                    dashArray: '10, 5',
-                    coordinates: [
-                        [13.1361, 123.7274],
-                        [13.1381, 123.7274],
-                        [13.1401, 123.7294]
-                    ]
-                },
-                {
-                    name: 'Emergency Route 1',
-                    type: 'emergency',
-                    color: '#FF4500',
-                    weight: 2,
-                    dashArray: '5, 5',
-                    coordinates: [
-                        [13.1341, 123.7294],
-                        [13.1361, 123.7294],
-                        [13.1381, 123.7294],
-                        [13.1401, 123.7294]
-                    ]
-                }
-            ];
-
-            // Don't add evacuation routes initially - controlled by checkboxes
-
-            // Add infrastructure markers to map permanently
-            infrastructurePoints.forEach(point => {
-                const marker = L.marker(point.coords, {
-                    icon: L.divIcon({
-                        html: `<i class="${point.icon}" style="color: ${point.color}; font-size: 20px;"></i>`,
-                        iconSize: [20, 20],
-                        className: 'infrastructure-marker'
-                    })
-                }).addTo(map);
-
-                marker.bindPopup(`
-                    <div class="popup-content">
-                        <h6><strong>${point.name}</strong></h6>
-                        <p><strong>Type:</strong> ${point.type.charAt(0).toUpperCase() + point.type.slice(1)}</p>
-                        <p><strong>Location:</strong> ${point.barangay}, ${point.municipality}, ${point.province}</p>
-                    </div>
-                `);
-            });
-
-            // Store map layers for checkbox control
-            window.mapLayers = {
-                hazardZones: []
-            };
-
-            // Store data for filtering
-            window.mapData = {
-                hazardZones
-            };
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 
             window.mapInstance = map;
 
             // Set up checkbox event listeners
             setupCheckboxListeners();
 
-<<<<<<< HEAD
             // Fallback: hide loading indicator after init (tiles also hide on 'load')
             if (loadingIndicator) loadingIndicator.style.display = 'none';
-=======
-            // Hide loading indicator
-            if (loadingIndicator) {
-                loadingIndicator.style.display = 'none';
-            }
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
 
             // Set initial map view to Ilawod, Camalig, Albay
             map.setView([13.1768, 123.6507], 16);
         }
 
         function setupCheckboxListeners() {
-<<<<<<< HEAD
-=======
-            // Hazard checkboxes
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
             document.querySelectorAll('.hazard-checkbox').forEach(checkbox => {
                 checkbox.addEventListener('change', function() {
                     filterHazards();
@@ -1641,17 +1219,11 @@
             });
         }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
         function filterHazards() {
             const checkedHazards = [];
             document.querySelectorAll('.hazard-checkbox:checked').forEach(checkbox => {
                 checkedHazards.push(checkbox.dataset.hazard);
             });
-<<<<<<< HEAD
             if (checkedHazards.length > 0) {
                 loadHazardsForTypes(checkedHazards);
             } else {
@@ -1661,58 +1233,6 @@
                 });
                 window.hazardLayerGroup?.clearLayers();
                 window.mapLayers.hazardZones = [];
-=======
-
-            // Clear existing hazard zones
-            window.mapLayers.hazardZones.forEach(layer => {
-                window.mapInstance.removeLayer(layer);
-            });
-            window.mapLayers.hazardZones = [];
-
-            // Only show hazard zones if something is checked
-            if (checkedHazards.length > 0) {
-                const visibleZones = [];
-                
-                checkedHazards.forEach(hazardType => {
-                    const matchingZones = window.mapData.hazardZones.filter(zone => zone.type === hazardType);
-                    matchingZones.forEach(zone => {
-                        visibleZones.push(zone);
-                        
-                        const polygon = L.polygon(zone.coordinates, {
-                            color: zone.color,
-                            fillColor: zone.color,
-                            fillOpacity: 0.3,
-                            weight: 2
-                        }).addTo(window.mapInstance);
-
-                        polygon.bindPopup(`
-                            <div class="popup-content">
-                                <h6><strong>${zone.name}</strong></h6>
-                                <p><strong>Type:</strong> ${zone.type.charAt(0).toUpperCase() + zone.type.slice(1)}</p>
-                                <p><strong>Severity:</strong> ${zone.severity.charAt(0).toUpperCase() + zone.severity.slice(1)}</p>
-                                <p><strong>Location:</strong> ${zone.barangay}, ${zone.municipality}, ${zone.province}</p>
-                            </div>
-                        `);
-
-                        window.mapLayers.hazardZones.push(polygon);
-                    });
-                });
-
-                // Auto-zoom to fit all visible hazard zones
-                if (visibleZones.length > 0) {
-                    const allCoords = [];
-                    visibleZones.forEach(zone => {
-                        zone.coordinates.forEach(coord => allCoords.push(coord));
-                    });
-                    
-                    if (allCoords.length > 0) {
-                        const bounds = L.latLngBounds(allCoords);
-                        window.mapInstance.fitBounds(bounds, { padding: [20, 20] });
-                    }
-                }
-            } else {
-                // If no hazards are checked, zoom out to show full barangay area
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                 window.mapInstance.setView([13.1768, 123.6507], 14);
             }
         }
@@ -1751,7 +1271,6 @@
                 </h2>
                 <div id="collapseHazards" class="accordion-collapse collapse">
                     <div class="accordion-body text-white">
-<<<<<<< HEAD
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <div class="form-check m-0">
                                 <input class="form-check-input hazard-checkbox" type="checkbox" id="hazardFlood" data-hazard="flood">
@@ -1955,49 +1474,6 @@
                             @auth
                             <button class="btn btn-sm btn-outline-light pwd-edit-btn" data-layer="pwd_households"><i class="fas fa-pen"></i> Edit</button>
                             @endauth
-=======
-                        <div class="form-check">
-                            <input class="form-check-input hazard-checkbox" type="checkbox" id="hazardFlood" data-hazard="flood">
-                            <label class="form-check-label" for="hazardFlood">
-                                <i class="fas fa-water text-primary me-2"></i>Flood
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input hazard-checkbox" type="checkbox" id="hazardLandslide" data-hazard="landslide">
-                            <label class="form-check-label" for="hazardLandslide">
-                                <i class="fas fa-mountain text-warning me-2"></i>Landslide
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input hazard-checkbox" type="checkbox" id="hazardFire" data-hazard="fire">
-                            <label class="form-check-label" for="hazardFire">
-                                <i class="fas fa-fire text-danger me-2"></i>Fire
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input hazard-checkbox" type="checkbox" id="hazardAshfall" data-hazard="ashfall">
-                            <label class="form-check-label" for="hazardAshfall">
-                                <i class="fas fa-cloud text-secondary me-2"></i>Ashfall
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input hazard-checkbox" type="checkbox" id="hazardLahar" data-hazard="lahar">
-                            <label class="form-check-label" for="hazardLahar">
-                                <i class="fas fa-tint text-dark me-2"></i>Lahar
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input hazard-checkbox" type="checkbox" id="hazardMudflow" data-hazard="mudflow">
-                            <label class="form-check-label" for="hazardMudflow">
-                                <i class="fas fa-water text-success me-2"></i>Mudflow
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input hazard-checkbox" type="checkbox" id="hazardWind" data-hazard="wind">
-                            <label class="form-check-label" for="hazardWind">
-                                <i class="fas fa-wind text-info me-2"></i>Wind
-                            </label>
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                         </div>
                     </div>
                 </div>
@@ -2091,7 +1567,6 @@
     <div class="map-main-container" id="mapMainContainer">
         <div class="container-fluid p-0">
             <h3 class="text-center mb-4 fw-bold text-primary">Barangay Ilawod Hazard Map</h3>
-<<<<<<< HEAD
             <div class="position-relative">
                 <div id="hazardMap" style="height: 75vh; border-radius: 12px; overflow: hidden;"></div>
                 @auth
@@ -2103,13 +1578,6 @@
             </div>
             <div class="map-loading" id="mapLoading" style="display: none;">
                 <i class="fas fa-spinner fa-spin"></i> Loading map...
-=======
-            <div class="map-container">
-                <div id="hazard-map" style="height: 600px;"></div>
-                <div class="map-loading" id="mapLoading" style="display: none;">
-                    <i class="fas fa-spinner fa-spin"></i> Loading map...
-                </div>
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
             </div>
         </div>
     </div>

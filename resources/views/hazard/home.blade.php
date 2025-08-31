@@ -414,11 +414,7 @@
                 <div class="row mb-4">
                     <div class="col-md-3">
                         <div class="stats-card text-center">
-<<<<<<< HEAD
                             <div class="stats-number">{{ number_format($totalPopulation ?? 0) }}</div>
-=======
-                            <div class="stats-number">3,825</div>
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                             <div class="text-muted">Total Population</div>
                             <a href="{{ route('residents.index') }}" class="residents-btn" role="button" aria-label="Show Residents List">
                                 <i class="fas fa-users me-2"></i> Show Residents List
@@ -427,35 +423,20 @@
                     </div>
                     <div class="col-md-3">
                         <div class="stats-card text-center">
-<<<<<<< HEAD
                             <div class="stats-number">{{ number_format($maternalCount ?? 0) }}</div>
                             <div class="text-muted">Maternal Status</div>
-=======
-                            <div class="stats-number">853</div>
-                            <div class="text-muted">No. of Households</div>
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="stats-card text-center">
-<<<<<<< HEAD
                             <div class="stats-number">{{ number_format($soloParentCount ?? 0) }}</div>
                             <div class="text-muted">Solo Parents</div>
-=======
-                            <div class="stats-number">1,126</div>
-                            <div class="text-muted">No. of Families</div>
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="stats-card text-center">
-<<<<<<< HEAD
                             <div class="stats-number">{{ number_format($pwdTotal ?? 0) }}</div>
                             <div class="text-muted">PWD ({{ number_format($pwdFemale ?? 0) }} F, {{ number_format($pwdMale ?? 0) }} M)</div>
-=======
-                            <div class="stats-number">138</div>
-                            <div class="text-muted">PWD (89 F, 49 M)</div>
->>>>>>> 7a584067cb8174031fa332c11a54a086080e3cd5
                         </div>
                     </div>
                 </div>
